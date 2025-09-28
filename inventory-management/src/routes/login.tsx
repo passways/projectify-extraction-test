@@ -18,7 +18,16 @@ function RouteComponent() {
         password: state.value.password,
       });
 
-      if (!error) {
+      if (error) return;
+
+      const { data } = await supabase.from("user_info").select();
+
+      if (data?.length === 0) {
+        navigate({
+          to: "/setup/create-organization",
+          replace: true,
+        });
+      } else {
         navigate({
           to: "/dashboard",
           replace: true,

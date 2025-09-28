@@ -1,14 +1,27 @@
-import { NavLink, Stack, type NavLinkProps } from "@mantine/core";
+import { Flex, NavLink, Stack, type NavLinkProps } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import {
   IconBuildingWarehouse,
   IconLayoutDashboard,
+  IconLogout,
 } from "@tabler/icons-react";
+import { supabase } from "../../db/supabase";
 
 export function Navbar() {
+  const response = supabase
+    .from("user_info")
+    .select(`
+    organizations (
+      id,
+      name
+    )
+  `)
+    .single();
+
   return (
     <Stack justify="space-between" h={"100%"}>
       <div>
+        <Flex></Flex>
         <StyledLink
           leftSection={<IconLayoutDashboard size={16} />}
           label="Dashboard"
@@ -20,7 +33,13 @@ export function Navbar() {
           to="/inventory"
         />
       </div>
-      <div></div>
+      <div>
+        <StyledLink
+          leftSection={<IconLogout size={16} />}
+          label="Log Out"
+          to="/logout"
+        />
+      </div>
     </Stack>
   );
 }

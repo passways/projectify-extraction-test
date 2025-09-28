@@ -143,6 +143,29 @@ export type Database = {
         }
         Relationships: []
       }
+      user_info: {
+        Row: {
+          primary_organization_id: string
+          user_id: string
+        }
+        Insert: {
+          primary_organization_id: string
+          user_id?: string
+        }
+        Update: {
+          primary_organization_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_info_primary_organization_id_fkey"
+            columns: ["primary_organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users_to_organizations: {
         Row: {
           organization_id: string

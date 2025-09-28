@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LogoutRouteImport } from './routes/logout'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedSetupRouteRouteImport } from './routes/_authenticated/setup/route'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/_dashboard/route'
+import { Route as AuthenticatedSetupCreateOrganizationRouteImport } from './routes/_authenticated/setup/create-organization'
 import { Route as AuthenticatedDashboardDashboardRouteImport } from './routes/_authenticated/_dashboard/dashboard'
 import { Route as AuthenticatedDashboardInventoryIndexRouteImport } from './routes/_authenticated/_dashboard/inventory/index'
 
+const LogoutRoute = LogoutRouteImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -36,10 +44,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedSetupRouteRoute = AuthenticatedSetupRouteRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRouteRoute =
   AuthenticatedDashboardRouteRouteImport.update({
     id: '/_dashboard',
     getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSetupCreateOrganizationRoute =
+  AuthenticatedSetupCreateOrganizationRouteImport.update({
+    id: '/create-organization',
+    path: '/create-organization',
+    getParentRoute: () => AuthenticatedSetupRouteRoute,
   } as any)
 const AuthenticatedDashboardDashboardRoute =
   AuthenticatedDashboardDashboardRouteImport.update({
@@ -58,14 +77,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/setup': typeof AuthenticatedSetupRouteRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardDashboardRoute
+  '/setup/create-organization': typeof AuthenticatedSetupCreateOrganizationRoute
   '/inventory': typeof AuthenticatedDashboardInventoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
+  '/setup': typeof AuthenticatedSetupRouteRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardDashboardRoute
+  '/setup/create-organization': typeof AuthenticatedSetupCreateOrganizationRoute
   '/inventory': typeof AuthenticatedDashboardInventoryIndexRoute
 }
 export interface FileRoutesById {
@@ -74,23 +99,45 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/logout': typeof LogoutRoute
   '/_authenticated/_dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
+  '/_authenticated/setup': typeof AuthenticatedSetupRouteRouteWithChildren
   '/_authenticated/_dashboard/dashboard': typeof AuthenticatedDashboardDashboardRoute
+  '/_authenticated/setup/create-organization': typeof AuthenticatedSetupCreateOrganizationRoute
   '/_authenticated/_dashboard/inventory/': typeof AuthenticatedDashboardInventoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login' | '/dashboard' | '/inventory'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/logout'
+    | '/setup'
+    | '/dashboard'
+    | '/setup/create-organization'
+    | '/inventory'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login' | '/dashboard' | '/inventory'
+  to:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/logout'
+    | '/setup'
+    | '/dashboard'
+    | '/setup/create-organization'
+    | '/inventory'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
     | '/login'
+    | '/logout'
     | '/_authenticated/_dashboard'
+    | '/_authenticated/setup'
     | '/_authenticated/_dashboard/dashboard'
+    | '/_authenticated/setup/create-organization'
     | '/_authenticated/_dashboard/inventory/'
   fileRoutesById: FileRoutesById
 }
@@ -99,10 +146,18 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
+  LogoutRoute: typeof LogoutRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/logout': {
+      id: '/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof LogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -131,12 +186,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/setup': {
+      id: '/_authenticated/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof AuthenticatedSetupRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/_dashboard': {
       id: '/_authenticated/_dashboard'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthenticatedDashboardRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/setup/create-organization': {
+      id: '/_authenticated/setup/create-organization'
+      path: '/create-organization'
+      fullPath: '/setup/create-organization'
+      preLoaderRoute: typeof AuthenticatedSetupCreateOrganizationRouteImport
+      parentRoute: typeof AuthenticatedSetupRouteRoute
     }
     '/_authenticated/_dashboard/dashboard': {
       id: '/_authenticated/_dashboard/dashboard'
@@ -172,13 +241,30 @@ const AuthenticatedDashboardRouteRouteWithChildren =
     AuthenticatedDashboardRouteRouteChildren,
   )
 
+interface AuthenticatedSetupRouteRouteChildren {
+  AuthenticatedSetupCreateOrganizationRoute: typeof AuthenticatedSetupCreateOrganizationRoute
+}
+
+const AuthenticatedSetupRouteRouteChildren: AuthenticatedSetupRouteRouteChildren =
+  {
+    AuthenticatedSetupCreateOrganizationRoute:
+      AuthenticatedSetupCreateOrganizationRoute,
+  }
+
+const AuthenticatedSetupRouteRouteWithChildren =
+  AuthenticatedSetupRouteRoute._addFileChildren(
+    AuthenticatedSetupRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRouteRoute: typeof AuthenticatedDashboardRouteRouteWithChildren
+  AuthenticatedSetupRouteRoute: typeof AuthenticatedSetupRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRouteRoute:
     AuthenticatedDashboardRouteRouteWithChildren,
+  AuthenticatedSetupRouteRoute: AuthenticatedSetupRouteRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -189,6 +275,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
+  LogoutRoute: LogoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
