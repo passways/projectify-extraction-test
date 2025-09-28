@@ -1,0 +1,24 @@
+{
+  "name": "@projectify/inventory-management-api",
+  "packageManager": "pnpm@10.17.0",
+  "scripts": {
+    "db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate",
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@orpc/server": "^1.9.1",
+    "dotenv": "^17.2.2",
+    "drizzle-orm": "^0.44.5",
+    "pino": "^9.12.0",
+    "postgres": "^3.4.7",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "drizzle-kit": "^0.31.5",
+    "tsx": "^4.20.6",
+    "typescript": "~5.8.3"
+  }
+}
