@@ -2,10 +2,10 @@
   "name": "@projectify/inventory-management-api",
   "packageManager": "pnpm@10.17.0",
   "scripts": {
+    "dev": "tsx watch src/main.ts",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
-    "db:generate": "drizzle-kit generate",
-    "dev": "tsx watch src/index.ts"
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@orpc/server": "^1.9.1",
