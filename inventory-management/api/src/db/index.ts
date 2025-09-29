@@ -1,8 +1,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { env } from "../env";
-import { tenantsTable } from "./schema/tenants";
-import { usersTable } from "./schema/users";
+import { tenantTable } from "./schema/tenant";
+import { userTable } from "./schema/user";
 
 const client = postgres(env.DATABASE_URL);
 export const db = drizzle({
@@ -10,7 +10,7 @@ export const db = drizzle({
   logger: true,
   casing: "snake_case",
   schema: {
-    ...tenantsTable,
-    ...usersTable,
+    ...tenantTable,
+    ...userTable,
   },
 });

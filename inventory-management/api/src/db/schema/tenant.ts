@@ -1,11 +1,13 @@
 import { pgTable, uuid, varchar } from "drizzle-orm/pg-core";
-import { usersTable } from "./users";
+import { timestamps } from "./timestamps";
+import { userTable } from "./user";
 
-export const tenantsTable = pgTable("tenant", {
+export const tenantTable = pgTable("tenant", {
   id: uuid().primaryKey().defaultRandom(),
   name: varchar({ length: 255 }).notNull(),
   description: varchar({ length: 255 }).notNull(),
   owner_id: uuid()
     .notNull()
-    .references(() => usersTable.id),
+    .references(() => userTable.id),
+  ...timestamps,
 });

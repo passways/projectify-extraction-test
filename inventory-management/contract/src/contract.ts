@@ -1,4 +1,4 @@
-import { getAllTenantsContract, getTenantContract } from "./tenants";
+import { getAllTenantsContract, getTenantContract } from "./contracts/tenants";
 
 export const contract = {
   tenant: {
