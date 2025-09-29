@@ -7,17 +7,24 @@ const tenantSchema = z.object({
   description: z.string().nullable(),
 });
 
-export const getTenantContract = oc
-  .input(
-    z.object({
-      id: z.string(),
+export const tenantContract = {
+  getAll: oc.output(z.array(tenantSchema)),
+  get: oc
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .output(tenantSchema)
+    .errors({
+      NOT_FOUND: {
+        message: "Organization not found",
+      },
     }),
-  )
-  .output(tenantSchema)
-  .errors({
-    NOT_FOUND: {
-      message: "Organization not found",
-    },
-  });
-
-export const getAllTenantsContract = oc.output(z.array(tenantSchema));
+  create: oc.input(
+    z.object({
+      name: z.string().max(255).trim(),
+      description: z.string().max(255).trim().nullable(),
+    }),
+  ),
+};

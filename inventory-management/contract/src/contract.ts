@@ -1,8 +1,7 @@
-import { getAllTenantsContract, getTenantContract } from "./contracts/tenants";
+import { setupContract } from "./contracts/setup";
+import { tenantContract } from "./contracts/tenants";
 
 export const contract = {
-  tenant: {
-    get: getTenantContract,
-    getAll: getAllTenantsContract,
-  },
+  tenant: tenantContract,
+  setup: setupContract,
 };
