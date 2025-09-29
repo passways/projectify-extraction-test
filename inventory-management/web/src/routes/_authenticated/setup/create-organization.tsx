@@ -1,8 +1,7 @@
+import { Button, Stack, Textarea, TextInput, Title } from "@mantine/core";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { createOrganizationForm } from "../../../forms/organizations/create";
-import { Stack, Title, TextInput, Button, Textarea } from "@mantine/core";
-import { supabase } from "../../../db/supabase";
 
 export const Route = createFileRoute(
   "/_authenticated/setup/create-organization",
@@ -14,27 +13,7 @@ function RouteComponent() {
   const navigate = useNavigate();
   const form = useForm({
     ...createOrganizationForm,
-    onSubmit: async (state) => {
-      const user = await supabase.auth.getUser();
-      const userId = user.data?.user?.id;
-      if (!userId) return;
-
-      const { data, error } = await supabase
-        .from("organizations")
-        .insert({
-          name: state.value.name,
-          description: state.value.description,
-          owner_id: userId,
-        })
-        .select();
-
-      if (error || !data) return;
-
-      await supabase.from("user_info").insert({
-        user_id: userId,
-        primary_organization_id: data[0].id,
-      });
-
+    onSubmit: async () => {
       navigate({
         to: "/dashboard",
         replace: true,

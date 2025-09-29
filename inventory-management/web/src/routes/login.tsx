@@ -2,7 +2,7 @@ import { Button, Center, Stack, TextInput, Title } from "@mantine/core";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { loginForm } from "../forms/log-in";
-import { supabase } from "../db/supabase";
+import { supabase } from "../supabase";
 
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
