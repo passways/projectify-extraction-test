@@ -11,5 +11,5 @@ export const loginForm = formOptions({
       email: z.email(),
       password: z.string().min(8),
     }),
-  }
+  },
 });
