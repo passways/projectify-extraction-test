@@ -1,10 +1,10 @@
 import { os } from "@orpc/server";
-import { getOrganizations } from "./procedures/organization/get";
-import { getAllOrganizations } from "./procedures/organization/getAll";
+import { getTenant } from "./procedures/tenant/get";
+import { getAllTenants } from "./procedures/tenant/getAll";
 
 export const router = os.router({
-  organizations: {
-    get: getOrganizations,
-    getAll: getAllOrganizations,
+  tenants: {
+    get: getTenant,
+    getAll: getAllTenants,
   },
 });

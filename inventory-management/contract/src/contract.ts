@@ -1,8 +1,8 @@
-import { getAllOrganizations, getOrganization } from "./organizations";
+import { getAllTenantsContract, getTenantContract } from "./tenants";
 
 export const contract = {
-  organizations: {
-    get: getOrganization,
-    getAll: getAllOrganizations,
+  tenant: {
+    get: getTenantContract,
+    getAll: getAllTenantsContract,
   },
 };

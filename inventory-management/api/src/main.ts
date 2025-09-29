@@ -1,8 +1,8 @@
+import { createServer } from "node:http";
 import { RPCHandler } from "@orpc/server/node";
 import { CORSPlugin } from "@orpc/server/plugins";
-import { router } from "./router";
-import { createServer } from "node:http";
 import { logger } from "./logger";
+import { router } from "./router";
 
 const handler = new RPCHandler(router, {
   plugins: [new CORSPlugin()],
