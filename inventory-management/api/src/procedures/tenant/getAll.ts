@@ -1,7 +1,7 @@
 import { db } from "../../db";
 import { tenantTable } from "../../db/schema/tenant";
-import { os } from "../../os";
+import { base } from "../../middleware/base";
 
-export const getAllTenants = os.tenant.getAll.handler(
+export const getAllTenants = base.tenant.getAll.handler(
   async () => await db.select().from(tenantTable),
 );

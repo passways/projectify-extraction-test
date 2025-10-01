@@ -1,10 +1,9 @@
 import { eq } from "drizzle-orm";
-import z from "zod";
 import { db } from "../../db";
 import { tenantTable } from "../../db/schema/tenant";
-import { os } from "../../os";
+import { base } from "../../middleware/base";
 
-export const getTenant = os.tenant.get.handler(async ({ input, errors }) => {
+export const getTenant = base.tenant.get.handler(async ({ input, errors }) => {
   const organizations = await db
     .select()
     .from(tenantTable)

@@ -21,10 +21,4 @@ export const tenantContract = {
         message: "Organization not found",
       },
     }),
-  create: oc.input(
-    z.object({
-      name: z.string().max(255).trim(),
-      description: z.string().max(255).trim().nullable(),
-    }),
-  ),
 };
