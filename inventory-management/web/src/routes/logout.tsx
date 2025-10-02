@@ -1,13 +1,9 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { supabase } from "../supabase";
+import { auth0 } from "../auth0";
 
 export const Route = createFileRoute("/logout")({
   loader: async () => {
-    await supabase.auth.signOut();
-
-    throw redirect({
-      to: "/login",
-      replace: true,
-    });
+    await auth0.logout();
+    return redirect({ to: "/login", replace: true });
   },
 });

@@ -1,9 +1,7 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: RouteComponent,
+  loader: () => {
+    return redirect({ to: "/login", replace: true });
+  },
 });
-
-function RouteComponent() {
-  return Navigate({ to: "/login" });
-}

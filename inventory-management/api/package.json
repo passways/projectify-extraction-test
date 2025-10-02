@@ -5,7 +5,8 @@
     "dev": "tsx watch src/main.ts",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "debug": "tsx --inspect-brk src/main.ts"
   },
   "dependencies": {
     "@orpc/server": "^1.9.1",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@types/node": "^24.5.2",
     "drizzle-kit": "^0.31.5",
+    "pino-pretty": "^13.1.1",
     "tsx": "^4.20.6",
     "typescript": "~5.8.3"
   }

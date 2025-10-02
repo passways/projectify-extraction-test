@@ -1,9 +1,10 @@
 import { ORPCError } from "@orpc/server";
+import { logger } from "../logger";
 import { orpc } from "../orpc";
 import { verifyJWT } from "../utils/auth/jwt";
 
 export const requireAuth = orpc.middleware(async ({ context, next }) => {
-  const authHeader = context.headers.get("Authorization");
+  const authHeader = context.headers.authorization;
   const token = authHeader?.split(" ")[1];
 
   if (!token) {
@@ -28,7 +29,8 @@ export const requireAuth = orpc.middleware(async ({ context, next }) => {
         },
       },
     });
-  } catch {
+  } catch (error) {
+    logger.error(error);
     throw new ORPCError("UNAUTHORIZED");
   }
 });

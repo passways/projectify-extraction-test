@@ -8,4 +8,5 @@ export const setupContract = {
       tenantDescription: z.string().max(255).trim().nullable(),
     }),
   ),
+  isUserInitialized: oc.output(z.boolean()),
 };

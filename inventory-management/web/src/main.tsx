@@ -4,7 +4,6 @@ import { createRoot } from "react-dom/client";
 import "@mantine/core/styles.css";
 import { createTheme, MantineProvider } from "@mantine/core";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-
 import { routeTree } from "./routeTree.gen";
 
 const theme = createTheme({});

@@ -2,23 +2,15 @@ import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import type { ContractRouterClient } from "@orpc/contract";
 import type { contract } from "@projectify/inma-contract";
-import { router } from "./main";
-import { supabase } from "./supabase";
+import { auth0 } from "./auth0";
 
 const link = new RPCLink({
-  url: "http://127.0.0.1:3080",
+  url: import.meta.env.VITE_API_URL,
   headers: async () => {
-    const { data, error } = await supabase.auth.getSession();
-
-    if (error) {
-      router.navigate({
-        to: "/logout",
-      });
-      throw error;
-    }
+    const token = await auth0.getTokenSilently();
 
     return {
-      Authorization: `Bearer ${data.session?.access_token}`,
+      Authorization: `Bearer ${token}`,
     };
   },
 });
