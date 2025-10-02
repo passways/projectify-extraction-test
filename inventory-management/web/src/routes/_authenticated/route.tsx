@@ -6,8 +6,6 @@ export const Route = createFileRoute("/_authenticated")({
   loader: async () => {
     const isAuthenticated = await auth0.isAuthenticated();
 
-    console.log("isAuthenticated", isAuthenticated);
-
     if (!isAuthenticated) {
       return redirect({
         to: "/login",
