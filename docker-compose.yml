@@ -1,0 +1,17 @@
+# Intended for development and testing purposes only.
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: projectify
+      POSTGRES_PASSWORD: projectify
+      POSTGRES_DB: projectify
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
