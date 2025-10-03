@@ -3,9 +3,7 @@ import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { createOrganizationForm } from "../../../forms/organizations/create";
 
-export const Route = createFileRoute(
-  "/_authenticated/setup/create-organization",
-)({
+export const Route = createFileRoute("/_authenticated/setup/")({
   component: RouteComponent,
 });
 
@@ -30,7 +28,7 @@ function RouteComponent() {
       }}
     >
       <Stack miw={400}>
-        <Title order={1}>Create your organization</Title>
+        <Title order={1}>Create your tenant</Title>
         <form.Field
           name="name"
           children={({ state, handleChange, handleBlur }) => (

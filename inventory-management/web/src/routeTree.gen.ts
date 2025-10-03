@@ -17,7 +17,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedSetupRouteRouteImport } from './routes/_authenticated/setup/route'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/_dashboard/route'
-import { Route as AuthenticatedSetupCreateOrganizationRouteImport } from './routes/_authenticated/setup/create-organization'
+import { Route as AuthenticatedSetupIndexRouteImport } from './routes/_authenticated/setup/index'
 import { Route as AuthenticatedDashboardDashboardRouteImport } from './routes/_authenticated/_dashboard/dashboard'
 import { Route as AuthenticatedDashboardInventoryIndexRouteImport } from './routes/_authenticated/_dashboard/inventory/index'
 
@@ -60,12 +60,11 @@ const AuthenticatedDashboardRouteRoute =
     id: '/_dashboard',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedSetupCreateOrganizationRoute =
-  AuthenticatedSetupCreateOrganizationRouteImport.update({
-    id: '/create-organization',
-    path: '/create-organization',
-    getParentRoute: () => AuthenticatedSetupRouteRoute,
-  } as any)
+const AuthenticatedSetupIndexRoute = AuthenticatedSetupIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedSetupRouteRoute,
+} as any)
 const AuthenticatedDashboardDashboardRoute =
   AuthenticatedDashboardDashboardRouteImport.update({
     id: '/dashboard',
@@ -87,7 +86,7 @@ export interface FileRoutesByFullPath {
   '/logout': typeof LogoutRoute
   '/setup': typeof AuthenticatedSetupRouteRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardDashboardRoute
-  '/setup/create-organization': typeof AuthenticatedSetupCreateOrganizationRoute
+  '/setup/': typeof AuthenticatedSetupIndexRoute
   '/inventory': typeof AuthenticatedDashboardInventoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -96,9 +95,8 @@ export interface FileRoutesByTo {
   '/authenticate': typeof AuthenticateRoute
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
-  '/setup': typeof AuthenticatedSetupRouteRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardDashboardRoute
-  '/setup/create-organization': typeof AuthenticatedSetupCreateOrganizationRoute
+  '/setup': typeof AuthenticatedSetupIndexRoute
   '/inventory': typeof AuthenticatedDashboardInventoryIndexRoute
 }
 export interface FileRoutesById {
@@ -112,7 +110,7 @@ export interface FileRoutesById {
   '/_authenticated/_dashboard': typeof AuthenticatedDashboardRouteRouteWithChildren
   '/_authenticated/setup': typeof AuthenticatedSetupRouteRouteWithChildren
   '/_authenticated/_dashboard/dashboard': typeof AuthenticatedDashboardDashboardRoute
-  '/_authenticated/setup/create-organization': typeof AuthenticatedSetupCreateOrganizationRoute
+  '/_authenticated/setup/': typeof AuthenticatedSetupIndexRoute
   '/_authenticated/_dashboard/inventory/': typeof AuthenticatedDashboardInventoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -125,7 +123,7 @@ export interface FileRouteTypes {
     | '/logout'
     | '/setup'
     | '/dashboard'
-    | '/setup/create-organization'
+    | '/setup/'
     | '/inventory'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -134,9 +132,8 @@ export interface FileRouteTypes {
     | '/authenticate'
     | '/login'
     | '/logout'
-    | '/setup'
     | '/dashboard'
-    | '/setup/create-organization'
+    | '/setup'
     | '/inventory'
   id:
     | '__root__'
@@ -149,7 +146,7 @@ export interface FileRouteTypes {
     | '/_authenticated/_dashboard'
     | '/_authenticated/setup'
     | '/_authenticated/_dashboard/dashboard'
-    | '/_authenticated/setup/create-organization'
+    | '/_authenticated/setup/'
     | '/_authenticated/_dashboard/inventory/'
   fileRoutesById: FileRoutesById
 }
@@ -220,11 +217,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/setup/create-organization': {
-      id: '/_authenticated/setup/create-organization'
-      path: '/create-organization'
-      fullPath: '/setup/create-organization'
-      preLoaderRoute: typeof AuthenticatedSetupCreateOrganizationRouteImport
+    '/_authenticated/setup/': {
+      id: '/_authenticated/setup/'
+      path: '/'
+      fullPath: '/setup/'
+      preLoaderRoute: typeof AuthenticatedSetupIndexRouteImport
       parentRoute: typeof AuthenticatedSetupRouteRoute
     }
     '/_authenticated/_dashboard/dashboard': {
@@ -262,13 +259,12 @@ const AuthenticatedDashboardRouteRouteWithChildren =
   )
 
 interface AuthenticatedSetupRouteRouteChildren {
-  AuthenticatedSetupCreateOrganizationRoute: typeof AuthenticatedSetupCreateOrganizationRoute
+  AuthenticatedSetupIndexRoute: typeof AuthenticatedSetupIndexRoute
 }
 
 const AuthenticatedSetupRouteRouteChildren: AuthenticatedSetupRouteRouteChildren =
   {
-    AuthenticatedSetupCreateOrganizationRoute:
-      AuthenticatedSetupCreateOrganizationRoute,
+    AuthenticatedSetupIndexRoute: AuthenticatedSetupIndexRoute,
   }
 
 const AuthenticatedSetupRouteRouteWithChildren =
