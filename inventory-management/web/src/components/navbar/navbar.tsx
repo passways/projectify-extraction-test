@@ -1,10 +1,11 @@
-import { Flex, NavLink, Stack, type NavLinkProps } from "@mantine/core";
-import { Link } from "@tanstack/react-router";
+import { Flex, NavLink, type NavLinkProps, Stack } from "@mantine/core";
 import {
   IconBuildingWarehouse,
   IconLayoutDashboard,
   IconLogout,
+  IconPin,
 } from "@tabler/icons-react";
+import { Link } from "@tanstack/react-router";
 
 export function Navbar() {
   return (
@@ -15,6 +16,11 @@ export function Navbar() {
           leftSection={<IconLayoutDashboard size={16} />}
           label="Dashboard"
           to="/dashboard"
+        />
+        <StyledLink
+          leftSection={<IconPin size={16} />}
+          label="Locations"
+          to="/locations"
         />
         <StyledLink
           leftSection={<IconBuildingWarehouse size={16} />}

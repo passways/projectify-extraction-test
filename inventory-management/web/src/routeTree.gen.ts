@@ -19,6 +19,7 @@ import { Route as AuthenticatedSetupRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/_dashboard/route'
 import { Route as AuthenticatedSetupIndexRouteImport } from './routes/_authenticated/setup/index'
 import { Route as AuthenticatedDashboardDashboardRouteImport } from './routes/_authenticated/_dashboard/dashboard'
+import { Route as AuthenticatedDashboardLocationsIndexRouteImport } from './routes/_authenticated/_dashboard/locations/index'
 import { Route as AuthenticatedDashboardInventoryIndexRouteImport } from './routes/_authenticated/_dashboard/inventory/index'
 
 const LogoutRoute = LogoutRouteImport.update({
@@ -71,6 +72,12 @@ const AuthenticatedDashboardDashboardRoute =
     path: '/dashboard',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
+const AuthenticatedDashboardLocationsIndexRoute =
+  AuthenticatedDashboardLocationsIndexRouteImport.update({
+    id: '/locations/',
+    path: '/locations/',
+    getParentRoute: () => AuthenticatedDashboardRouteRoute,
+  } as any)
 const AuthenticatedDashboardInventoryIndexRoute =
   AuthenticatedDashboardInventoryIndexRouteImport.update({
     id: '/inventory/',
@@ -88,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardDashboardRoute
   '/setup/': typeof AuthenticatedSetupIndexRoute
   '/inventory': typeof AuthenticatedDashboardInventoryIndexRoute
+  '/locations': typeof AuthenticatedDashboardLocationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -98,6 +106,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardDashboardRoute
   '/setup': typeof AuthenticatedSetupIndexRoute
   '/inventory': typeof AuthenticatedDashboardInventoryIndexRoute
+  '/locations': typeof AuthenticatedDashboardLocationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -112,6 +121,7 @@ export interface FileRoutesById {
   '/_authenticated/_dashboard/dashboard': typeof AuthenticatedDashboardDashboardRoute
   '/_authenticated/setup/': typeof AuthenticatedSetupIndexRoute
   '/_authenticated/_dashboard/inventory/': typeof AuthenticatedDashboardInventoryIndexRoute
+  '/_authenticated/_dashboard/locations/': typeof AuthenticatedDashboardLocationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/setup/'
     | '/inventory'
+    | '/locations'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/setup'
     | '/inventory'
+    | '/locations'
   id:
     | '__root__'
     | '/'
@@ -148,6 +160,7 @@ export interface FileRouteTypes {
     | '/_authenticated/_dashboard/dashboard'
     | '/_authenticated/setup/'
     | '/_authenticated/_dashboard/inventory/'
+    | '/_authenticated/_dashboard/locations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardDashboardRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
+    '/_authenticated/_dashboard/locations/': {
+      id: '/_authenticated/_dashboard/locations/'
+      path: '/locations'
+      fullPath: '/locations'
+      preLoaderRoute: typeof AuthenticatedDashboardLocationsIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRouteRoute
+    }
     '/_authenticated/_dashboard/inventory/': {
       id: '/_authenticated/_dashboard/inventory/'
       path: '/inventory'
@@ -244,6 +264,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedDashboardRouteRouteChildren {
   AuthenticatedDashboardDashboardRoute: typeof AuthenticatedDashboardDashboardRoute
   AuthenticatedDashboardInventoryIndexRoute: typeof AuthenticatedDashboardInventoryIndexRoute
+  AuthenticatedDashboardLocationsIndexRoute: typeof AuthenticatedDashboardLocationsIndexRoute
 }
 
 const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRouteChildren =
@@ -251,6 +272,8 @@ const AuthenticatedDashboardRouteRouteChildren: AuthenticatedDashboardRouteRoute
     AuthenticatedDashboardDashboardRoute: AuthenticatedDashboardDashboardRoute,
     AuthenticatedDashboardInventoryIndexRoute:
       AuthenticatedDashboardInventoryIndexRoute,
+    AuthenticatedDashboardLocationsIndexRoute:
+      AuthenticatedDashboardLocationsIndexRoute,
   }
 
 const AuthenticatedDashboardRouteRouteWithChildren =
