@@ -8,8 +8,19 @@ const tenantSchema = z.object({
 });
 
 export const tenantContract = {
-  getAll: oc.output(z.array(tenantSchema)),
+  getAll: oc
+    .route({
+      method: "GET",
+      tags: ["Tenant"],
+      path: "/tenants",
+    })
+    .output(z.array(tenantSchema)),
   get: oc
+    .route({
+      method: "GET",
+      tags: ["Tenant"],
+      path: "/tenants/:id",
+    })
     .input(
       z.object({
         id: z.string(),

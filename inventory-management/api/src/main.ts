@@ -1,12 +1,25 @@
 import { createServer } from "node:http";
+import { OpenAPIHandler } from "@orpc/openapi/node";
+import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
 import { onError } from "@orpc/server";
-import { RPCHandler } from "@orpc/server/node";
-import { CORSPlugin } from "@orpc/server/plugins";
+import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { logger } from "./logger";
 import { router } from "./router";
 
-const handler = new RPCHandler(router, {
-  plugins: [new CORSPlugin()],
+const handler = new OpenAPIHandler(router, {
+  plugins: [
+    new OpenAPIReferencePlugin({
+      docsProvider: "scalar",
+      docsPath: "/docs",
+      schemaConverters: [new ZodToJsonSchemaConverter()],
+      specGenerateOptions: {
+        info: {
+          title: "Inventory Management API",
+          version: "1.0.0",
+        },
+      },
+    }),
+  ],
   interceptors: [onError((err) => logger.error(err))],
 });
 

@@ -9,7 +9,9 @@
     "debug": "tsx --inspect-brk src/main.ts"
   },
   "dependencies": {
+    "@orpc/openapi": "^1.9.2",
     "@orpc/server": "^1.9.1",
+    "@orpc/zod": "^1.9.2",
     "@projectify/inma-contract": "workspace:*",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",

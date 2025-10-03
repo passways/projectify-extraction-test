@@ -8,9 +8,24 @@ const locationSchema = z.object({
 });
 
 export const locationContract = {
-  get: oc.input(z.uuid()).output(locationSchema),
-  getAll: oc.output(z.array(locationSchema)),
+  get: oc
+    .route({
+      method: "GET",
+      path: "/locations/:id",
+    })
+    .input(z.uuid())
+    .output(locationSchema),
+  getAll: oc
+    .route({
+      method: "GET",
+      path: "/locations",
+    })
+    .output(z.array(locationSchema)),
   create: oc
+    .route({
+      method: "POST",
+      path: "/locations",
+    })
     .input(
       z.object({
         name: z.string(),
@@ -19,6 +34,10 @@ export const locationContract = {
     )
     .output(locationSchema),
   update: oc
+    .route({
+      method: "PUT",
+      path: "/locations/:id",
+    })
     .input(
       z.object({
         id: z.uuid(),
@@ -27,5 +46,10 @@ export const locationContract = {
       }),
     )
     .output(locationSchema),
-  delete: oc.input(z.uuid()),
+  delete: oc
+    .route({
+      method: "DELETE",
+      path: "/locations/:id",
+    })
+    .input(z.uuid()),
 };
