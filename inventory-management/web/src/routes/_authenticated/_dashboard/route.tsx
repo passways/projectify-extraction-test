@@ -1,9 +1,19 @@
 import { AppShell } from "@mantine/core";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { Navbar } from "../../../components/navbar/navbar";
+import { orpc } from "../../../rpc";
 
 export const Route = createFileRoute("/_authenticated/_dashboard")({
   component: RouteComponent,
+  loader: async () => {
+    const isUserInitialized = await orpc.user.hasTenant();
+
+    if (!isUserInitialized)
+      return redirect({
+        to: "/setup",
+        replace: true,
+      });
+  },
 });
 
 function RouteComponent() {

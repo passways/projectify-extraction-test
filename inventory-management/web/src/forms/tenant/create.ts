@@ -1,7 +1,7 @@
 import { formOptions } from "@tanstack/react-form";
 import z from "zod";
 
-export const createOrganizationForm = formOptions({
+export const createTenantForm = formOptions({
   defaultValues: {
     name: "",
     description: "",

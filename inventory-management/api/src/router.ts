@@ -1,16 +1,18 @@
 import { orpc } from "./orpc";
-import { initializeSetup } from "./procedures/setup/initialize";
-import { isUserInitializedSetup } from "./procedures/setup/isUserInitialized";
-import { getTenant } from "./procedures/tenant/get";
-import { getAllTenants } from "./procedures/tenant/getAll";
+import { initializeProcedure } from "./procedures/setup/initialize";
+import { getTenantProcedure } from "./procedures/tenant/get";
+import { getAllTenantsProcedure } from "./procedures/tenant/get-all";
+import { hasTenantProcedure } from "./procedures/users/has-tenant";
 
 export const router = orpc.router({
   tenant: {
-    get: getTenant,
-    getAll: getAllTenants,
+    get: getTenantProcedure,
+    getAll: getAllTenantsProcedure,
   },
   setup: {
-    initialize: initializeSetup,
-    isUserInitialized: isUserInitializedSetup,
+    initialize: initializeProcedure,
+  },
+  user: {
+    hasTenant: hasTenantProcedure,
   },
 });

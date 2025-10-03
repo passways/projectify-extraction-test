@@ -5,7 +5,7 @@ import { tenantTable } from "../../db/schema/tenant";
 import { userInfoTable } from "../../db/schema/user-info";
 import { base } from "../../middleware/base";
 
-export const initializeSetup = base.setup.initialize.handler(
+export const initializeProcedure = base.setup.initialize.handler(
   async ({ input, context }) => {
     const { user } = context;
 

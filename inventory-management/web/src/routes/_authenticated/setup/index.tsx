@@ -1,7 +1,8 @@
 import { Button, Stack, Textarea, TextInput, Title } from "@mantine/core";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { createOrganizationForm } from "../../../forms/organizations/create";
+import { createTenantForm } from "../../../forms/tenant/create";
+import { orpc } from "../../../rpc";
 
 export const Route = createFileRoute("/_authenticated/setup/")({
   component: RouteComponent,
@@ -10,8 +11,13 @@ export const Route = createFileRoute("/_authenticated/setup/")({
 function RouteComponent() {
   const navigate = useNavigate();
   const form = useForm({
-    ...createOrganizationForm,
-    onSubmit: async () => {
+    ...createTenantForm,
+    onSubmit: async ({ value }) => {
+      await orpc.setup.initialize({
+        tenantName: value.name,
+        tenantDescription: value.description,
+      });
+
       navigate({
         to: "/dashboard",
         replace: true,
@@ -24,7 +30,6 @@ function RouteComponent() {
       onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        form.handleSubmit();
       }}
     >
       <Stack miw={400}>
@@ -56,7 +61,11 @@ function RouteComponent() {
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isDirty]}
           children={([canSubmit, isDirty]) => (
-            <Button type="submit" disabled={!canSubmit || !isDirty}>
+            <Button
+              type="submit"
+              disabled={!canSubmit || !isDirty}
+              onClick={() => form.handleSubmit()}
+            >
               Create
             </Button>
           )}
