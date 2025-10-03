@@ -1,9 +1,9 @@
-import { pgTable, uuid } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 import { tenantTable } from "./tenant";
 import { timestamps } from "./timestamps";
 
 export const userInfoTable = pgTable("user_info", {
-  userId: uuid().primaryKey(),
+  userId: varchar({ length: 63 }).primaryKey(),
   primaryTenantId: uuid()
     .notNull()
     .references(() => tenantTable.id),

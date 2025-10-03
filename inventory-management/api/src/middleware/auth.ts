@@ -15,12 +15,17 @@ export const requireAuth = orpc.middleware(async ({ context, next }) => {
   try {
     const { payload } = await verifyJWT(token);
 
+    if (!payload || !payload.sub) {
+      throw new ORPCError("UNAUTHORIZED", {
+        message: "Invalid token",
+      });
+    }
+
     return next({
       context: {
         ...context,
         user: {
           id: payload.sub,
-          email: payload.email as string,
         },
       },
     });
