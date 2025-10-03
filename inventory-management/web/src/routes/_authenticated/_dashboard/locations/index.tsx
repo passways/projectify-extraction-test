@@ -1,9 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Stack, Title } from "@mantine/core";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_authenticated/_dashboard/locations/')({
+export const Route = createFileRoute("/_authenticated/_dashboard/locations/")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <div>Hello "/_authenticated/locations/"!</div>
+  return (
+    <Stack>
+      <Title order={2}>Locations</Title>
+    </Stack>
+  );
 }

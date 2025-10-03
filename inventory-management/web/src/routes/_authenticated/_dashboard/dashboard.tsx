@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_authenticated/_dashboard/dashboard")({
 function RouteComponent() {
   return (
     <Stack>
-      <Title order={1}>Dashboard</Title>
+      <Title order={2}>Dashboard</Title>
     </Stack>
   );
 }
