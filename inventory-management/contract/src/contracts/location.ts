@@ -13,7 +13,7 @@ export const locationContract = {
       method: "GET",
       path: "/locations/:id",
     })
-    .input(z.uuid())
+    .input(z.object({ id: z.string().uuid() }))
     .output(locationSchema),
   getAll: oc
     .route({
