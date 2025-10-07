@@ -7,7 +7,7 @@ export const inventoryTable = pgTable("inventory", {
   name: varchar({ length: 255 }).notNull(),
   description: varchar({ length: 255 }),
   quantity: integer().notNull().default(0),
-  ean: varchar({ length: 13 }).notNull().unique(),
+  ean: varchar({ length: 13 }).unique(),
   locationId: uuid()
     .notNull()
     .references(() => locationTable.id),

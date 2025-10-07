@@ -1,4 +1,9 @@
 import { orpc } from "./orpc";
+import { createInventoryProcedure } from "./procedures/inventory/create";
+import { deleteInventoryProcedure } from "./procedures/inventory/delete";
+import { getInventoryProcedure } from "./procedures/inventory/get";
+import { getAllInventoryProcedure } from "./procedures/inventory/get-all";
+import { updateInventoryProcedure } from "./procedures/inventory/update";
 import { createLocationProcedure } from "./procedures/location/create";
 import { deleteLocationProcedure } from "./procedures/location/delete";
 import { getLocationProcedure } from "./procedures/location/get";
@@ -18,5 +23,12 @@ export const router = orpc.router({
     create: createLocationProcedure,
     update: updateLocationProcedure,
     delete: deleteLocationProcedure,
+  },
+  inventory: {
+    getAll: getAllInventoryProcedure,
+    get: getInventoryProcedure,
+    create: createInventoryProcedure,
+    update: updateInventoryProcedure,
+    delete: deleteInventoryProcedure,
   },
 });
