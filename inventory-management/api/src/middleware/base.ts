@@ -1,5 +1,11 @@
+import type {
+  RequestHeadersPluginContext,
+  ResponseHeadersPluginContext,
+} from "@orpc/server/plugins";
 import { orpc } from "../orpc";
-import { requireAuth } from "./auth";
-import { logging } from "./logger";
 
-export const base = orpc.use(requireAuth).use(logging);
+interface ORCPContext
+  extends RequestHeadersPluginContext,
+    ResponseHeadersPluginContext {}
+
+export const base = orpc.$context<ORCPContext>();
