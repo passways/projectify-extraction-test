@@ -27,5 +27,10 @@
     "pino-pretty": "^13.1.1",
     "tsx": "^4.20.6",
     "typescript": "~5.8.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": ">=0.25.0"
+    }
   }
 }
