@@ -15,9 +15,8 @@ export const locationContract = {
     })
     .input(z.object({ id: z.uuid() }))
     .output(LocationSchema)
-    .errors({
-      ...notFound,
-    }),
+    .errors(notFound),
+
   getAll: oc
     .route({
       method: "GET",
@@ -26,6 +25,7 @@ export const locationContract = {
       path: "/locations",
     })
     .output(z.array(LocationSchema)),
+
   create: oc
     .route({
       method: "POST",
@@ -33,13 +33,9 @@ export const locationContract = {
       successStatus: 201,
       path: "/locations",
     })
-    .input(
-      z.object({
-        name: z.string(),
-        description: z.string().nullable(),
-      }),
-    )
+    .input(LocationSchema.omit({ id: true, createdAt: true, updatedAt: true }))
     .output(LocationSchema),
+
   update: oc
     .route({
       method: "PUT",
@@ -47,17 +43,10 @@ export const locationContract = {
       successStatus: 200,
       path: "/locations/:id",
     })
-    .input(
-      z.object({
-        id: z.uuid(),
-        name: z.string(),
-        description: z.string().nullable(),
-      }),
-    )
+    .input(LocationSchema.omit({ createdAt: true, updatedAt: true }))
     .output(LocationSchema)
-    .errors({
-      ...notFound,
-    }),
+    .errors(notFound),
+
   delete: oc
     .route({
       method: "DELETE",
@@ -66,7 +55,5 @@ export const locationContract = {
       path: "/locations/:id",
     })
     .input(z.uuid())
-    .errors({
-      ...notFound,
-    }),
+    .errors(notFound),
 };
