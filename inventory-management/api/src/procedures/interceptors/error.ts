@@ -3,6 +3,8 @@ import { logger } from "better-auth";
 import z from "zod";
 
 export const errorInterceptor = (error: unknown) => {
+  logger.error("An error occurred in a procedure", { error });
+
   if (error instanceof ORPCError) {
     if (
       error.code === "BAD_REQUEST" &&
@@ -26,7 +28,5 @@ export const errorInterceptor = (error: unknown) => {
         cause: error.cause,
       });
     }
-  } else if (typeof error === "string") {
-    logger.error(error);
-  } else throw error;
+  }
 };
