@@ -1,5 +1,7 @@
 {
   "name": "@projectify/inma-contract",
+  "private": true,
+  "type": "module",
   "packageManager": "pnpm@10.17.0",
   "scripts": {
     "build": "tsc",
@@ -16,10 +18,6 @@
     ".": {
       "types": "./dist/contract.d.ts",
       "default": "./dist/contract.js"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
     }
   }
 }

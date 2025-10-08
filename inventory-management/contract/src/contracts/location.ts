@@ -1,7 +1,7 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
-import { LocationSchema } from "../schemas/location";
-import { notFoundError } from "../utils/errors";
+import { LocationSchema } from "../schemas/location.js";
+import { notFoundError } from "../utils/errors.js";
 
 const notFound = notFoundError("Location");
 

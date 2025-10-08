@@ -1,7 +1,7 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
-import { InventorySchema } from "../schemas/inventory";
-import { notFoundError } from "../utils/errors";
+import { InventorySchema } from "../schemas/inventory.js";
+import { notFoundError } from "../utils/errors.js";
 
 const notFound = notFoundError("Item");
 

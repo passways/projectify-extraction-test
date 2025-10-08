@@ -1,8 +1,8 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
-import { inventoryContract } from "./contracts/inventory";
-import { locationContract } from "./contracts/location";
-import { sessionContract } from "./contracts/session";
+import { inventoryContract } from "./contracts/inventory.js";
+import { locationContract } from "./contracts/location.js";
+import { sessionContract } from "./contracts/session.js";
 
 export const contract = {
   session: sessionContract,
