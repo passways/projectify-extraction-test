@@ -2,12 +2,17 @@ import { createServer } from "node:http";
 import { OpenAPIHandler } from "@orpc/openapi/node";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
 import { onError } from "@orpc/server";
+import { CORSPlugin } from "@orpc/server/plugins";
+import { ZodSmartCoercionPlugin } from "@orpc/zod";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import { logger } from "./logger";
+import { errorInterceptor } from "./procedures/interceptors/error";
 import { router } from "./router";
 
 const handler = new OpenAPIHandler(router, {
   plugins: [
+    new CORSPlugin(),
+    new ZodSmartCoercionPlugin(),
     new OpenAPIReferencePlugin({
       docsProvider: "scalar",
       docsPath: "/docs",
@@ -20,7 +25,7 @@ const handler = new OpenAPIHandler(router, {
       },
     }),
   ],
-  interceptors: [onError((err) => logger.error(err))],
+  interceptors: [onError((error) => errorInterceptor(error))],
 });
 
 const server = createServer(async (req, res) => {

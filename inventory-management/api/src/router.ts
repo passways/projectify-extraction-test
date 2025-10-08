@@ -11,6 +11,7 @@ import { getAllLocationProcedure } from "./procedures/location/get-all";
 import { updateLocationProcedure } from "./procedures/location/update";
 import { signInProcedure } from "./procedures/session/sign-in";
 import { signOutProcedure } from "./procedures/session/sign-out";
+import { setupProcedure } from "./procedures/setup";
 
 export const router = orpc.router({
   session: {
@@ -31,4 +32,5 @@ export const router = orpc.router({
     update: updateInventoryProcedure,
     delete: deleteInventoryProcedure,
   },
+  setup: setupProcedure,
 });
