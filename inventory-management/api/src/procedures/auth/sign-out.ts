@@ -1,9 +1,8 @@
 import { deleteCookie } from "@orpc/server/helpers";
-import { requireAuth } from "../../middleware/auth";
-import { cookiePrefix } from "../../utils/auth";
+import { requireAuth } from "../../middleware/require-auth";
 
-export const signOutProcedure = requireAuth.session.signOut.handler(
+export const signOutProcedure = requireAuth.auth.signOut.handler(
   async ({ context }) => {
-    deleteCookie(context.resHeaders, `${cookiePrefix}.session_token`);
+    deleteCookie(context.resHeaders, `better_auth.session_token`);
   },
 );

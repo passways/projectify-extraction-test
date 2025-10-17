@@ -1,8 +1,8 @@
 import { setCookie } from "@orpc/server/helpers";
 import { base } from "../../middleware/base";
-import { auth, cookiePrefix } from "../../utils/auth";
+import { auth } from "../../utils/auth";
 
-export const signInProcedure = base.session.signIn.handler(
+export const signInProcedure = base.auth.signIn.handler(
   async ({ input, context }) => {
     const data = await auth.api.signInEmail({
       body: {
@@ -11,7 +11,7 @@ export const signInProcedure = base.session.signIn.handler(
       },
     });
 
-    setCookie(context.resHeaders, `${cookiePrefix}.session_token`, data.token, {
+    setCookie(context.resHeaders, `better_auth.session_token`, data.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });
