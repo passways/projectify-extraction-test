@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
 import { inventoryTable } from "../../db/schema/inventory";
-import { requireAuth } from "../../middleware/auth";
+import { requireAuth } from "../../middleware/require-auth";
 
 export const updateInventoryProcedure = requireAuth.inventory.update.handler(
   async ({

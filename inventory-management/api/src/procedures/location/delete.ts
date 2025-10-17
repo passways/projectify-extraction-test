@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db";
 import { locationTable } from "../../db/schema/location";
-import { requireAuth } from "../../middleware/auth";
+import { requireAuth } from "../../middleware/require-auth";
 
 export const deleteLocationProcedure = requireAuth.location.delete.handler(
   async ({ input: id, errors }) => {

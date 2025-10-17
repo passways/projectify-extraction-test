@@ -1,6 +1,6 @@
 import { setCookie } from "@orpc/server/helpers";
 import { base } from "../middleware/base";
-import { auth, cookiePrefix } from "../utils/auth";
+import { auth } from "../utils/auth";
 
 export const setupProcedure = base.setup.handler(
   async ({ context, input: { email, password, name }, errors }) => {
@@ -16,9 +16,10 @@ export const setupProcedure = base.setup.handler(
       throw errors.INTERNAL_SERVER_ERROR();
     }
 
-    setCookie(context.resHeaders, `${cookiePrefix}.session-token`, token, {
-      httpOnly: true,
+    setCookie(context.resHeaders, `better_auth.session-token`, token, {
       secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 3600,
     });
   },
 );

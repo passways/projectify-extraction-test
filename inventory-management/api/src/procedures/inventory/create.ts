@@ -1,6 +1,6 @@
 import { db } from "../../db";
 import { inventoryTable } from "../../db/schema/inventory";
-import { requireAuth } from "../../middleware/auth";
+import { requireAuth } from "../../middleware/require-auth";
 
 export const createInventoryProcedure = requireAuth.inventory.create.handler(
   async ({ input: { name, description, quantity, ean, locationId } }) => {
