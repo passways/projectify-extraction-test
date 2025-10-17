@@ -1,11 +1,11 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { openAPI } from "better-auth/plugins";
 import { db } from "../db";
 import * as authSchema from "../db/schema/auth";
 
-export const cookiePrefix = "inma";
-
 export const auth = betterAuth({
+  plugins: [openAPI()],
   emailAndPassword: {
     enabled: true,
   },
@@ -15,7 +15,4 @@ export const auth = betterAuth({
       ...authSchema,
     },
   }),
-  advanced: {
-    cookiePrefix: cookiePrefix,
-  },
 });

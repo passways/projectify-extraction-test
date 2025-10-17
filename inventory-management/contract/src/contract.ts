@@ -1,11 +1,11 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
+import { authContract } from "./contracts/auth.js";
 import { inventoryContract } from "./contracts/inventory.js";
 import { locationContract } from "./contracts/location.js";
-import { sessionContract } from "./contracts/session.js";
 
 export const contract = {
-  session: sessionContract,
+  auth: authContract,
   location: locationContract,
   inventory: inventoryContract,
   setup: oc
