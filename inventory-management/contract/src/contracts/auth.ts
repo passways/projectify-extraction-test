@@ -1,7 +1,7 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
 
-export const sessionContract = {
+export const authContract = {
   signIn: oc
     .route({
       method: "POST",
