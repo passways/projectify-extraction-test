@@ -6,6 +6,7 @@ import * as authSchema from "../db/schema/auth";
 
 export const auth = betterAuth({
   plugins: [openAPI()],
+  basePath: "/auth",
   emailAndPassword: {
     enabled: true,
   },
@@ -15,4 +16,13 @@ export const auth = betterAuth({
       ...authSchema,
     },
   }),
+  advanced: {
+    useSecureCookies: true,
+    defaultCookieAttributes: {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      partitioned: true,
+    },
+  },
 });

@@ -1,6 +1,4 @@
 import { orpc } from "./orpc";
-import { signInProcedure } from "./procedures/auth/sign-in";
-import { signOutProcedure } from "./procedures/auth/sign-out";
 import { createInventoryProcedure } from "./procedures/inventory/create";
 import { deleteInventoryProcedure } from "./procedures/inventory/delete";
 import { getInventoryProcedure } from "./procedures/inventory/get";
@@ -14,10 +12,6 @@ import { updateLocationProcedure } from "./procedures/location/update";
 import { setupProcedure } from "./procedures/setup";
 
 export const router = orpc.router({
-  auth: {
-    signIn: signInProcedure,
-    signOut: signOutProcedure,
-  },
   location: {
     getAll: getAllLocationProcedure,
     get: getLocationProcedure,

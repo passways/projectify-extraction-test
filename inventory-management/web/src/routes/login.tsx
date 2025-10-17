@@ -1,8 +1,8 @@
 import { Button, Center, Stack, TextInput, Title } from "@mantine/core";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { apiClient } from "../api";
 import { loginForm } from "../forms/log-in";
+import { authClient } from "../utils/auth-client";
 
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
@@ -13,12 +13,12 @@ function RouteComponent() {
   const { Field, handleSubmit, Subscribe } = useForm({
     ...loginForm,
     onSubmit: async ({ value }) => {
-      await apiClient.auth.signIn({
+      await authClient.signIn.email({
         email: value.email,
         password: value.password,
       });
 
-      navigate({ to: "/dashboard" });
+      navigate({ to: "/dashboard", replace: true });
     },
   });
 
