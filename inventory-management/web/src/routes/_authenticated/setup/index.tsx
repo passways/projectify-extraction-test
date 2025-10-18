@@ -2,7 +2,6 @@ import { Button, Stack, TextInput, Title } from "@mantine/core";
 import { useForm } from "@tanstack/react-form";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import z from "zod";
-import { apiClient } from "../../../api";
 
 export const Route = createFileRoute("/_authenticated/setup/")({
   component: RouteComponent,
@@ -24,8 +23,6 @@ function RouteComponent() {
       }),
     },
     onSubmit: async ({ value }) => {
-      const result = await apiClient.setup(value);
-
       navigate({
         to: "/dashboard",
         replace: true,
