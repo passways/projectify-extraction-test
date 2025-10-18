@@ -6,6 +6,12 @@ import type { router } from "../../../api/src/router";
 
 const link = new RPCLink({
   url: "http://localhost:3000",
+  fetch: (request, init) => {
+    return globalThis.fetch(request, {
+      ...init,
+      credentials: "include",
+    });
+  },
 });
 
 export const orpcClient: RouterClient<typeof router> = createORPCClient(link);
