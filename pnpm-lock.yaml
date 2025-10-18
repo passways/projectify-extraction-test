@@ -72,6 +72,15 @@ importers:
       '@mantine/hooks':
         specifier: ^8.3.3
         version: 8.3.3(react@19.2.0)
+      '@orpc/client':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@orpc/server':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@orpc/tanstack-query':
+        specifier: ^1.9.4
+        version: 1.9.4(@orpc/client@1.9.4)(@tanstack/query-core@5.90.2)
       '@tabler/icons-react':
         specifier: ^3.35.0
         version: 3.35.0(react@19.2.0)
@@ -711,6 +720,12 @@ packages:
 
   '@orpc/standard-server@1.9.4':
     resolution: {integrity: sha512-Z5klb9wWtzzGUyGzo+/o52ky1UavvApBT1BHuMrm2kgbQg6pbFoblJgcqevoTIvXtek43BtWQCwu1wc5rkRdYg==}
+
+  '@orpc/tanstack-query@1.9.4':
+    resolution: {integrity: sha512-s869zz2o7RNIKW9p1zVDUX966soXmzwY95AUB6EU0OPNLyRsFf2k8OUQnAqlYGh4uVkbx++qxK3OPbjPft5uiA==}
+    peerDependencies:
+      '@orpc/client': 1.9.4
+      '@tanstack/query-core': '>=5.80.2'
 
   '@peculiar/asn1-android@2.5.0':
     resolution: {integrity: sha512-t8A83hgghWQkcneRsgGs2ebAlRe54ns88p7ouv8PW2tzF1nAW4yHcL4uZKrFpIU+uszIRzTkcCuie37gpkId0A==}
@@ -2733,6 +2748,14 @@ snapshots:
   '@orpc/standard-server@1.9.4':
     dependencies:
       '@orpc/shared': 1.9.4
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/tanstack-query@1.9.4(@orpc/client@1.9.4)(@tanstack/query-core@5.90.2)':
+    dependencies:
+      '@orpc/client': 1.9.4
+      '@orpc/shared': 1.9.4
+      '@tanstack/query-core': 5.90.2
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
