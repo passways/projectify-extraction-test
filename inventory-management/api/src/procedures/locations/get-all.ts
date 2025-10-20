@@ -1,8 +1,8 @@
 import { db } from "../../db";
 import { LocationSchema, locationTable } from "../../db/schema/location";
-import { base } from "../../middleware/base";
+import { requireAuth } from "../../middleware/require-auth";
 
-export default base
+export default requireAuth
   .route({ path: "/locations", method: "GET", successStatus: 200 })
   .output(LocationSchema.array())
   .handler(async () => {

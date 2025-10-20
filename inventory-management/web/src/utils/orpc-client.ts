@@ -5,7 +5,7 @@ import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import type { router } from "../../../api/src/router";
 
 const link = new RPCLink({
-  url: "http://localhost:3000",
+  url: "http://127.0.0.1:3000",
   fetch: (request, init) => {
     return globalThis.fetch(request, {
       ...init,

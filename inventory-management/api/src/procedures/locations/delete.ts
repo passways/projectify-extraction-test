@@ -3,9 +3,9 @@ import { eq } from "drizzle-orm";
 import z from "zod";
 import { db } from "../../db";
 import { locationTable } from "../../db/schema/location";
-import { base } from "../../middleware/base";
+import { requireAuth } from "../../middleware/require-auth";
 
-export default base
+export default requireAuth
   .route({
     method: "DELETE",
     path: "/locations/:id",

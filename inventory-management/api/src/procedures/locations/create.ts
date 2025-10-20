@@ -4,9 +4,9 @@ import {
   LocationSchema,
   locationTable,
 } from "../../db/schema/location";
-import { base } from "../../middleware/base";
+import { requireAuth } from "../../middleware/require-auth";
 
-export default base
+export default requireAuth
   .route({
     method: "POST",
     path: "/locations",

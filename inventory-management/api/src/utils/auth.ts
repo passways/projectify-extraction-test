@@ -1,11 +1,9 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { openAPI } from "better-auth/plugins";
 import { db } from "../db";
 import * as authSchema from "../db/schema/auth";
 
 export const auth = betterAuth({
-  plugins: [openAPI()],
   basePath: "/auth",
   emailAndPassword: {
     enabled: true,
@@ -18,6 +16,7 @@ export const auth = betterAuth({
   }),
   advanced: {
     useSecureCookies: true,
+    cookiePrefix: "inma",
     defaultCookieAttributes: {
       httpOnly: true,
       secure: true,
@@ -27,8 +26,3 @@ export const auth = betterAuth({
   },
   trustedOrigins: ["http://localhost:3080"],
 });
-
-export type AuthType = {
-  user: typeof auth.$Infer.Session.user | null;
-  session: typeof auth.$Infer.Session.session | null;
-};
