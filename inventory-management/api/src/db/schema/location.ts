@@ -13,6 +13,15 @@ export const locationTable = pgTable("location", {
   ...timestamps,
 });
 
-export const LocationSchema = createSelectSchema(locationTable);
-export const LocationInsertSchema = createInsertSchema(locationTable);
-export const LocationUpdateSchema = createUpdateSchema(locationTable);
+export const LocationSchema = createSelectSchema(locationTable).omit({
+  createdAt: true,
+  updatedAt: true,
+});
+export const LocationInsertSchema = createInsertSchema(locationTable).omit({
+  createdAt: true,
+  updatedAt: true,
+});
+export const LocationUpdateSchema = createUpdateSchema(locationTable).omit({
+  createdAt: true,
+  updatedAt: true,
+});

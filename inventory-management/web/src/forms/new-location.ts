@@ -9,7 +9,7 @@ export const newLocationForm = formOptions({
   validators: {
     onChange: z.object({
       name: z.string().trim().min(1),
-      description: z.string(),
+      description: z.string().trim(),
     }),
   },
 });
