@@ -1,9 +1,5 @@
 import { pgTable, uuid, varchar } from "drizzle-orm/pg-core";
-import {
-  createInsertSchema,
-  createSelectSchema,
-  createUpdateSchema,
-} from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { timestamps } from "./timestamps";
 
 export const locationTable = pgTable("location", {
@@ -18,10 +14,6 @@ export const LocationSchema = createSelectSchema(locationTable).omit({
   updatedAt: true,
 });
 export const LocationInsertSchema = createInsertSchema(locationTable).omit({
-  createdAt: true,
-  updatedAt: true,
-});
-export const LocationUpdateSchema = createUpdateSchema(locationTable).omit({
   createdAt: true,
   updatedAt: true,
 });

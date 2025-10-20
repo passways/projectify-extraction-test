@@ -6,11 +6,6 @@ import { locationTable } from "../../db/schema/location";
 import { requireAuth } from "../../middleware/require-auth";
 
 export default requireAuth
-  .route({
-    method: "DELETE",
-    path: "/locations/:id",
-    successStatus: 204,
-  })
   .input(z.object({ id: z.uuid() }))
   .handler(async ({ input }) => {
     const result = await db

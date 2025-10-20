@@ -7,11 +7,6 @@ import {
 import { requireAuth } from "../../middleware/require-auth";
 
 export default requireAuth
-  .route({
-    method: "POST",
-    path: "/locations",
-    successStatus: 201,
-  })
   .input(LocationInsertSchema)
   .output(LocationSchema)
   .handler(async ({ input }) => {

@@ -1,22 +1,21 @@
 import { ORPCError } from "@orpc/server";
 import { eq } from "drizzle-orm";
-import z from "zod";
 import { db } from "../../db";
 import { LocationSchema, locationTable } from "../../db/schema/location";
 import { requireAuth } from "../../middleware/require-auth";
 
 export default requireAuth
-  .input(z.object({ id: z.uuid() }))
+  .input(LocationSchema)
   .output(LocationSchema)
   .handler(async ({ input }) => {
-    const location = await db
-      .select()
-      .from(locationTable)
+    const updatedLocation = await db
+      .update(locationTable)
+      .set(input)
       .where(eq(locationTable.id, input.id));
 
-    if (location.length === 0) {
+    if (updatedLocation.length === 0) {
       throw new ORPCError("NOT_FOUND");
     }
 
-    return location[0];
+    return updatedLocation[0];
   });
