@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:17-alpine
     restart: unless-stopped
+    hostname: projectify-db
     environment:
       POSTGRES_USER: projectify
       POSTGRES_PASSWORD: projectify
@@ -12,6 +13,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  adminer:
+    image: adminer
+    hostname: projectify-adminer
+    restart: always
+    ports:
+      - 3100:8080
 
 volumes:
   postgres_data:

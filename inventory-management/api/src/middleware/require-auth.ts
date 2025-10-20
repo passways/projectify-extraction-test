@@ -15,7 +15,7 @@ const authMiddleware = base.middleware(async ({ context, next }) => {
     throw new ORPCError("UNAUTHORIZED");
   }
 
-  return next({ context: { session } });
+  return next({ context: { ...context, session } });
 });
 
 export const requireAuth = base.use(authMiddleware);

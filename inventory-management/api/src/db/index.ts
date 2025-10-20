@@ -5,6 +5,5 @@ import { env } from "../env";
 const client = postgres(env.DATABASE_URL);
 export const db = drizzle({
   client,
-  logger: true,
   casing: "snake_case",
 });

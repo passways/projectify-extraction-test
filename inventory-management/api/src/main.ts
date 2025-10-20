@@ -1,48 +1,41 @@
-import { createServer } from "node:http";
-import { OpenAPIHandler } from "@orpc/openapi/node";
-import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
-import { onError } from "@orpc/server";
-import { CORSPlugin } from "@orpc/server/plugins";
-import { ZodSmartCoercionPlugin } from "@orpc/zod";
-import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
-import { logger } from "./logger";
-import { errorInterceptor } from "./procedures/interceptors/error";
-import { router } from "./router";
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
+import { env } from "./env";
+import { handler } from "./handler";
+import { auth } from "./utils/auth";
 
-const handler = new OpenAPIHandler(router, {
-  plugins: [
-    new CORSPlugin(),
-    new ZodSmartCoercionPlugin(),
-    new OpenAPIReferencePlugin({
-      docsProvider: "scalar",
-      docsPath: "/docs",
-      schemaConverters: [new ZodToJsonSchemaConverter()],
-      specGenerateOptions: {
-        info: {
-          title: "Inventory Management API",
-          version: "1.0.0",
-        },
-      },
-    }),
-  ],
-  interceptors: [onError((error) => errorInterceptor(error))],
-});
+const app = new Hono();
 
-const server = createServer(async (req, res) => {
-  const result = await handler.handle(req, res, {
-    context: { headers: req.headers },
-  });
-
-  if (!result.matched) {
-    res.statusCode = 404;
-    res.end("No procedure matched");
-  }
-});
-
-server.on("error", (err) => {
-  logger.error(err);
-});
-
-server.listen(3080, "127.0.0.1", () =>
-  logger.info("Server listening on http://127.0.0.1:3080"),
+app.use(logger());
+app.use(
+  "*",
+  cors({
+    origin: env.CORS_ALLOWED_ORIGIN,
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    exposeHeaders: ["Content-Length"],
+    maxAge: 600,
+    credentials: true,
+  }),
 );
+
+app.use("/*", async (c, next) => {
+  const { matched, response } = await handler.handle(c.req.raw);
+
+  if (matched) {
+    return c.newResponse(response.body, response);
+  }
+
+  await next();
+});
+
+app.on(["POST", "GET"], "/auth/*", (c) => {
+  return auth.handler(c.req.raw);
+});
+
+serve({
+  fetch: app.fetch,
+  port: 3000,
+});

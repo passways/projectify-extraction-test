@@ -1,22 +1,21 @@
 import "dotenv/config";
-import { logger } from "./logger";
 
-const dbUrl = process.env.DATABASE_URL;
-const authSecret = process.env.BETTER_AUTH_SECRET;
-const authUrl = process.env.BETTER_AUTH_URL;
+const dbUrl = process.env.INMA_DATABASE_URL;
+const authSecret = process.env.INMA_AUTH_SECRET;
+const corsOrigin = process.env.INMA_CORS_ALLOWED_ORIGIN;
 
 if (!dbUrl) {
-  logger.error("DATABASE_URL is not set");
+  console.error("INMA_DATABASE_URL is not set");
   process.exit(1);
 }
 
 if (!authSecret) {
-  logger.error("BETTER_AUTH_SECRET is not set");
+  console.error("INMA_AUTH_SECRET is not set");
   process.exit(1);
 }
 
-if (!authUrl) {
-  logger.error("BETTER_AUTH_URL is not set");
+if (!corsOrigin) {
+  console.error("INMA_CORS_ALLOWED_ORIGIN is not set");
   process.exit(1);
 }
 
@@ -24,5 +23,5 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV || "production",
   DATABASE_URL: dbUrl,
   BETTER_AUTH_SECRET: authSecret,
-  BETTER_AUTH_URL: authUrl,
+  CORS_ALLOWED_ORIGIN: corsOrigin,
 };
