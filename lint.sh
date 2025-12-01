@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo "--"
-echo $MYENV
-echo $GITHUB_TOKEN
+echo $PATH
 echo $SUPER_SECRET
 echo "--"
