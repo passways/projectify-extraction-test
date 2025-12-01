@@ -1,5 +1,6 @@
 #!/bin/bash
 
 echo "--"
-echo $MYENV 
+echo $MYENV
+echo $GITHUB_TOKEN
 echo "--"
