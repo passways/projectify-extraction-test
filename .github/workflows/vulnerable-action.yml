@@ -23,4 +23,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: ./lint.sh
+
+      - run: |
+          ll
+          ./lint.sh
