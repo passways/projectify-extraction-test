@@ -19,7 +19,9 @@ jobs:
         with:
           cache: "pnpm"
 
-      - run: pnpm install
+      - run: ls -la
+
+      - run: ./lint.sh
 
 
       - run: |
