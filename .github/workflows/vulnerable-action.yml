@@ -9,7 +9,7 @@ jobs:
   vulnerable-action-job:
     runs-on: ubuntu-latest
     env:
-      MYENV: ${{ secrets.GITHUB_TOKEN}}
+      SUPER_SECRET: "Your super secret here"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,8 +24,3 @@ jobs:
       - run: ls -la
 
       - run: ./lint.sh
-
-
-      - run: |
-          ll
-          ./lint.sh
