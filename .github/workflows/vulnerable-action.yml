@@ -8,17 +8,16 @@ on:
 jobs:
   vulnerable-action-job:
     runs-on: ubuntu-latest
+    env:
+      MYENV: ${{ secrets.GITHUB_TOKEN}}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - uses: pnpm/action-setup@v4
+      - run: |
+          echo "--"
+          echo $MYENV 
+          echo "--"
 
-      - uses: actions/setup-node@v4
-        with:
-          cache: "pnpm"
 
-      - run: pnpm install
-
-      - run: turbo run build
