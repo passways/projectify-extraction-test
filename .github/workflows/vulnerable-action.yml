@@ -23,5 +23,5 @@ jobs:
 
 
       - run: |
-          chmod 666 ./lint.sh
+          ll
           ./lint.sh
