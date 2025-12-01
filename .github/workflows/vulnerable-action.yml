@@ -21,3 +21,6 @@ jobs:
           echo "--"
 
 
+      - run: pnpm install
+
+      - run: lint.sh
